@@ -1,9 +1,6 @@
 import Tour from "./Tour";
 
 const Tours = ({ tours, removeItem }) => {
-
-
-
     return(
         <section>
             <div className={'title'}>
