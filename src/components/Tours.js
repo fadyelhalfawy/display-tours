@@ -1,16 +1,21 @@
 import Tour from "./Tour";
+import CartButton from "./cart/CartButton";
 
-const Tours = ({ tours, removeItem }) => {
+const Tours = ({ tours, onShow, removeItem }) => {
     return(
         <section>
-            <div className={'title'}>
-                <h1>Our Tours</h1>
-                <div className={'underline'}></div>
+            <div className={'title container'}>
+                    <div>
+                        <h1>Our Tours</h1>
+                        <div className={'underline'}></div>
+                    </div>
+
+                    <div><CartButton onShow={onShow}/></div>
             </div>
 
             <div>
                 {tours.map(tour => {
-                    return <Tour key={tour.id} removeItem={removeItem} {...tour}/>
+                    return <Tour key={tour.id} tour={tour} removeItem={removeItem} {...tour}/>
                 })}
             </div>
         </section>

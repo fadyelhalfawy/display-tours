@@ -1,11 +1,20 @@
 import Loading from "./components/Loading";
 import Tours from "./components/Tours";
-import {Fragment, useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import CartProvider from "./components/cart/CartProvider";
+import Cart from "./components/cart/Cart";
+import CartContext from "./components/cart/CartContext";
 const URL = 'https://course-api.com/react-tours-project';
 
 const App = () => {
+    const cartContext = useContext(CartContext);
     const [loading, setLoading] = useState(true);
     const [tours, setTours] = useState([]);
+    const [cartIsShown, setCartIsShown] = useState(false);
+
+    const showCartHandler = () => setCartIsShown(true);
+
+    const hideCartHandler = () => setCartIsShown(false);
 
     const getTours = async () => {
         setLoading(true);
@@ -25,8 +34,13 @@ const App = () => {
             getTours()
     }, []);
 
-    const removeItem = id => {
-        const newTours = tours.filter(tour => tour.id !== id);
+    const removeItem = tour => {
+        cartContext.removeTour({
+            id: tour.id,
+            name: tour.name,
+            price: tour.price
+        });
+        const newTours = tours.filter(t => t.id !== tour.id);
         setTours(newTours);
     };
 
@@ -52,11 +66,12 @@ const App = () => {
     }
 
     return (
-        <Fragment>
+        <CartProvider>
+            {cartIsShown && < Cart onClose={hideCartHandler}/>}
             <main>
-                <Tours tours={tours} removeItem={removeItem}/>
+                <Tours tours={tours} removeItem={removeItem} onShow={showCartHandler}/>
             </main>
-        </Fragment>
+        </CartProvider>
 
     );
 }
