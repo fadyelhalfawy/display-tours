@@ -1,11 +1,15 @@
 import Tour from "./Tour";
+import CartButton from "./cart/CartButton";
 
 const Tours = ({ tours, removeItem }) => {
     return(
         <section>
             <div className={'title'}>
-                <h1>Our Tours</h1>
-                <div className={'underline'}></div>
+                <header>
+                    <h1>Our Tours</h1>
+                    <div className={'underline'}></div>
+                    <CartButton />
+                </header>
             </div>
 
             <div>
