@@ -5,23 +5,25 @@ import CartContext from "../cart/CartContext";
 
 const CartButton = ({ onShow }) => {
     const [btnIsHighLighted, setBtnIsHighLighted] = useState(false);
-    // const { items } = useContext(CartContext);
+    const { tours, amount } = useContext(CartContext);
+    console.log(tours);
     const btnClasses = `${classes.badge} ${ btnIsHighLighted ? classes.bump : ""}`;
-    // const numberOfCartItems = items.tours.reduce((a, b) => a + b, 0);
+    const numberOfCartItems = amount;
+    console.log(numberOfCartItems);
 
-    // useEffect(() => {
-    //     if (items.tours.length === 0) return;
-    //
-    //     setBtnIsHighLighted(true);
-    //
-    //     const timer = setTimeout( () => {
-    //         setBtnIsHighLighted(false);
-    //     }, 300);
-    //
-    //     return () => {
-    //         clearTimeout(timer);
-    //     };
-    // }, [items.tours]);
+    useEffect(() => {
+        if (tours.length === 0) return;
+
+        setBtnIsHighLighted(true);
+
+        const timer = setTimeout( () => {
+            setBtnIsHighLighted(false);
+        }, 300);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [tours]);
 
     return (
 
@@ -36,7 +38,7 @@ const CartButton = ({ onShow }) => {
       </span>
 
       <span className={btnClasses}>
-          {0}
+          {numberOfCartItems}
       </span>
 
         </button>

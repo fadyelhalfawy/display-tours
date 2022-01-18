@@ -8,15 +8,16 @@ const defaultCartState = {
 
 const cartReducer = (state, action) => {
   const updateTours = state.tours.concat(action.tour);
-  const updateAmount = state.amount + action.amount;
+  const updateAmount = state.amount + 1;
   return { tours: updateTours, amount: updateAmount };
 };
 
 const CartProvider = props => {
     const [cartState, dispatchCartAction] = useReducer(cartReducer, defaultCartState);
 
-    const removeTourHandler = id => {
-        dispatchCartAction({tour: id});
+    const removeTourHandler = tour => {
+        console.log(tour);
+        dispatchCartAction({tour: tour});
     };
 
     const cartContext = {
