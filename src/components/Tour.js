@@ -1,7 +1,9 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
+import CartContext from "./cart/CartContext";
 
-const Tour = ({ tour, name, price, info, image, removeItem }) => {
+const Tour = ({ tours, tour, name, price, info, image }) => {
     const [readMore, setReadMore] = useState(false);
+    const {removeTour} = useContext(CartContext);
 
     return(
         <article className={'single-tour'}>
@@ -23,7 +25,7 @@ const Tour = ({ tour, name, price, info, image, removeItem }) => {
 
                 <button
                     className={'delete-btn'}
-                    onClick={() => removeItem(tour)}>
+                    onClick={() => removeTour(tours, tour)}>
                     Not Interested
                 </button>
             </footer>
