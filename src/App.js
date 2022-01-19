@@ -56,7 +56,7 @@ const App = () => {
 
     return (
         <CartProvider setTour={setTours}>
-            {cartIsShown && < Cart onClose={hideCartHandler}/>}
+            {cartIsShown && < Cart tours={tours} onClose={hideCartHandler}/>}
             <main>
                 <Tours tours={tours} onShow={showCartHandler}/>
             </main>
