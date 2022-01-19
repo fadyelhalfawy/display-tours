@@ -1,15 +1,14 @@
+import {useContext, useEffect, useState} from "react";
 import classes from "../modules/HeaderCartButton.module.css";
 import CartIcon from "./CartIcon";
-import {useContext, useEffect, useState} from "react";
 import CartContext from "../cart/CartContext";
 
 const CartButton = ({ onShow }) => {
     const [btnIsHighLighted, setBtnIsHighLighted] = useState(false);
     const { tours, amount } = useContext(CartContext);
-    console.log(tours);
+
     const btnClasses = `${classes.badge} ${ btnIsHighLighted ? classes.bump : ""}`;
     const numberOfCartItems = amount;
-    console.log(numberOfCartItems);
 
     useEffect(() => {
         if (tours.length === 0) return;
@@ -34,7 +33,7 @@ const CartButton = ({ onShow }) => {
       </span>
 
        <span>
-          Your Cart
+          Bad Tours
       </span>
 
       <span className={btnClasses}>

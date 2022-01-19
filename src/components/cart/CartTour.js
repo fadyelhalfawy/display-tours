@@ -1,18 +1,23 @@
 import classes from "../modules/CartItem.module.css";
+import {useContext} from "react";
+import CartContext from "./CartContext";
 
-const CartTour = ({ name, price, removeTour }) => {
-    const priceFixed = `$${price.toFixed(2)}`;
+const CartTour = ({ name, price, image }) => {
+    const {removeItem} = useContext(CartContext);
 
     return(
       <li className={classes['cart-item']}>
-          <div>
-              <h2>{name}</h2>
-              <div className={classes.summary}>
-                  <span className={classes.price}>{priceFixed}</span>
+          <article className={"single-tour"}>
+              <img src={image} alt={name} />
+              <div className={'tour-info'}>
+                  <h2>{name}</h2>
+                  <div className={classes.summary}>
+                      <span className={'tour-price'}>${price}</span>
+                  </div>
               </div>
-          </div>
+          </article>
           <div className={classes.actions}>
-              <button onClick={removeTour}>−</button>
+              <button onClick={removeItem}>−</button>
           </div>
       </li>
     );

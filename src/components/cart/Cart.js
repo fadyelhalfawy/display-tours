@@ -1,32 +1,40 @@
-import classes from "../modules/Cart.module.css";
-import {useContext} from "react";
-import CartContext from "./CartContext";
+import {Fragment, useContext, useState} from "react";
 import Modal from "../UI/Modal";
+import classes from "../modules/Cart.module.css";
+import CartContext from "./CartContext";
 import CartTour from "./CartTour";
 
+const doneButtonHandler = <p className={classes.total}>Successfully Done with all elements</p>;
+
 const Cart = ({ onClose }) => {
+    const [didSubmit, setDidSubmit] = useState(false);
+
+    const submitHandler = () => setDidSubmit(true);
+
     const cartContext = useContext(CartContext);
 
-    const amount = `${cartContext.amount}`;
-    const hasItems = cartContext.tours.length > 0;
+    const {tours, amount} = cartContext;
 
-    const cartTourRemove = id => cartContext.removeTour(id);
+    const hasItems = tours.length > 0;
+
+    const {removeTour} = cartContext;
 
     const cartItems = (
-      <ul>
+      <ul className={classes['cart-items']}>
           { cartContext.tours.map(tour => (
               <CartTour
                 key={tour.id}
                 name={tour.name}
                 price={tour.price}
-                removeTour={cartTourRemove.bind(null, tour.id)}
+                image={tour.image}
+                removeTour={removeTour.bind(null, tour.id)}
               />
           )) }
       </ul>
     );
 
-    return(
-        <Modal onClose={onClose}>
+    const cartItemsModal = (
+        <Fragment>
             {cartItems}
             <div className={classes.total}>
                 <span>Amount</span>
@@ -35,8 +43,15 @@ const Cart = ({ onClose }) => {
 
             <div className={classes.actions}>
                 <button className={classes['button--alt']} onClick={onClose}>Close</button>
-                { hasItems && <button className={classes.button}>Done</button> }
+                { hasItems && <button className={classes.button} onClick={submitHandler}>Done</button> }
             </div>
+        </Fragment>
+    )
+
+    return(
+        <Modal onClose={onClose}>
+            {!didSubmit && cartItemsModal}
+            {didSubmit && doneButtonHandler}
         </Modal>
     );
 }
