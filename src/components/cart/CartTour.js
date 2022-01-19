@@ -2,7 +2,7 @@ import classes from "../modules/CartItem.module.css";
 import {useContext} from "react";
 import CartContext from "./CartContext";
 
-const CartTour = ({ name, price, image }) => {
+const CartTour = ({ id, name, price, image, tours }) => {
     const {removeItem} = useContext(CartContext);
 
     return(
@@ -17,7 +17,7 @@ const CartTour = ({ name, price, image }) => {
               </div>
           </article>
           <div className={classes.actions}>
-              <button onClick={removeItem}>−</button>
+              <button onClick={() => removeItem(id, tours)}>−</button>
           </div>
       </li>
     );

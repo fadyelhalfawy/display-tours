@@ -6,7 +6,7 @@ import CartTour from "./CartTour";
 
 const doneButtonHandler = <p className={classes.total}>Successfully Done with all elements</p>;
 
-const Cart = ({ onClose }) => {
+const Cart = ({ tours: items, onClose }) => {
     const [didSubmit, setDidSubmit] = useState(false);
 
     const submitHandler = () => setDidSubmit(true);
@@ -24,9 +24,11 @@ const Cart = ({ onClose }) => {
           { cartContext.tours.map(tour => (
               <CartTour
                 key={tour.id}
+                id={tour.id}
                 name={tour.name}
                 price={tour.price}
                 image={tour.image}
+                tours={items}
                 removeTour={removeTour.bind(null, tour.id)}
               />
           )) }
